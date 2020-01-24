@@ -1,3 +1,5 @@
+<!Its basic tempalate for all site. Another templates will be inherit by this file>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,14 +14,13 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">YourBlog</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarText">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="{%url 'posts_list_url'%}" <span class="sr-only">YourBlog</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Features</a>
@@ -37,7 +38,7 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-6 offset-md-0">
+        <div class="col-6 offset-md-3">
             {% block content%}
 
             {% endblock %}

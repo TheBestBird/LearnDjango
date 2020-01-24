@@ -1,4 +1,4 @@
-"""YourMap URL Configuration
+"""Project URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.0/topics/http/urls/
@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from django.urls import include
 
-# urlpatterns - list with all first links by YourMap page.
+# urlpatterns - list with all first links by Project page.
 # function path(link, function to use)
 # with include function we could carry over to one of our templates (/blog here)
 # Then we could use the same logic in templates

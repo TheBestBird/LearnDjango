@@ -17,6 +17,11 @@ from django.contrib import admin
 from django.urls import path
 from django.urls import include
 
+# urlpatterns - list with all first links by YourMap page.
+# function path(link, function to use)
+# with include function we could carry over to one of our templates (/blog here)
+# Then we could use the same logic in templates
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('blog/', include('blog.urls'))

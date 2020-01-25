@@ -7,15 +7,27 @@ from django.shortcuts import reverse
 
 class Post(models.Model):
     title = models.CharField(max_length=150, db_index=True)
-    slug = models.SlugField(max_length=150, unique=True)    # unique=True - only unique slug and automatic indexing
-    body = models.TextField(blank=True, db_index=True)      # blank=True - can be empty
-    date_pub = models.DateTimeField(auto_now_add=True)      # auto_now_add=True - data_pub will be recoded when
-                                                            # object is saved in DB
+    slug = models.SlugField(max_length=150, unique=True)        # unique=True - only unique slug and automatic indexing
+    body = models.TextField(blank=True, db_index=True)              # blank=True - can be empty
+    tags = models.ManyToManyField('Tag', blank=True, related_name='posts')
+    date_pub = models.DateTimeField(auto_now_add=True)              # auto_now_add=True - data_pub will be recoded when
+                                                                    # object is saved in DB
 
 # get_absolute_url is a method that makes work easier, because we can link
 # to our url(which is the instance(self.slug here))
     def get_absolute_url(self):
         return reverse('post_detail_url', kwargs={'slug': self.slug})
+
+    def __str__(self):
+        return '{}'.format(self.title)
+
+
+class Tag(models.Model):
+    title = models.CharField(max_length=50)
+    slug = models.SlugField(max_length=50, unique=True)
+
+    def get_absolute_url(self):
+        return reverse('tag_detail_url', kwargs={'slug': self.slug})
 
     def __str__(self):
         return '{}'.format(self.title)

@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.urls import include
-
+from .views import main_page
 # urlpatterns - list with all first links by Project page.
 # function path(link, function to use)
 # with include function we could carry over to one of our templates (/blog here)
@@ -24,5 +24,6 @@ from django.urls import include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('blog/', include('blog.urls'))
+    path('blog/', include('blog.urls')),
+    path('', main_page)
 ]

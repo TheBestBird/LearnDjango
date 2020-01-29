@@ -8,7 +8,9 @@ class ObjectDetailMixin:
 
     def get(self, request, slug):
         obj = get_object_or_404(self.model, slug__iexact=slug)
-        return render(request, self.template, context={self.model.__name__.lower(): obj})
+        return render(request, self.template, context={self.model.__name__.lower(): obj,
+                                                       'admin_object': obj,
+                                                       'detail': True})
 
 
 class ObjectCreateMixin:
@@ -44,3 +46,53 @@ class ObjectUpdateMixin:
             new_tag = bound_form.save()
             return redirect(new_tag)
         return render(request, self.template, context={'form': bound_form, self.model.__name__.lower(): obj})
+
+
+class ObjectDeleteMixin:
+    model = None
+    template = None
+    redirect_url = None
+
+    def get(self, request, slug):
+        obj = self.model.objects.get(slug__iexact=slug)
+        return render(request, self.template, context={self.model.__name__.lower(): obj})
+
+    def post(self, request, slug):
+        obj = self.model.objects.get(slug__iexact=slug)
+        obj.delete()
+        return redirect(reverse(self.redirect_url))
+
+
+class ModelLinksMixin:
+    name_detail = None
+    name_update = None
+    name_delete = None
+
+    def get_absolute_url(self):
+        return reverse(self.name_detail, kwargs={'slug': self.slug})
+
+    def get_update_url(self):
+        return reverse(self.name_update, kwargs={'slug': self.slug})
+
+    def get_delete_url(self):
+        return reverse(self.name_delete, kwargs={'slug': self.slug})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

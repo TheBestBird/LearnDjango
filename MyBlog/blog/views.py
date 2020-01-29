@@ -2,6 +2,7 @@ import time
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from .models import *
+from django.urls import reverse
 from django.views.generic import View
 from .utils import *
 from .forms import *
@@ -32,6 +33,23 @@ class PostCreate(ObjectCreateMixin, View):
 #     return render(request, 'blog/post_detail.html', context={'post': post})
 
 
+class PostDetail(ObjectDetailMixin, View):
+    model = Post
+    template = 'blog/post_detail.html'
+
+
+class PostUpdate(ObjectUpdateMixin, View):
+    model = Post
+    form_model = PostForm
+    template = 'blog/post_update_form.html'
+
+
+class PostDelete(ObjectDeleteMixin, View):
+    model = Post
+    template = 'blog/post_delete_form.html'
+    redirect_url = 'posts_list_url'
+
+
 class TagCreate(ObjectCreateMixin, View):
     form_model = TagForm
     template = 'blog/tag_create.html'
@@ -47,21 +65,16 @@ class TagCreate(ObjectCreateMixin, View):
     #     return render(request, 'blog/tag_create.html', context={'form': bound_form})
 
 
-class PostDetail(ObjectDetailMixin, View):
-    model = Post
-    template = 'blog/post_detail.html'
-
-
-class PostUpdate(ObjectUpdateMixin, View):
-    model = Post
-    form_model = PostForm
-    template = 'blog/post_update_form.html'
-
-
 class TagUpdate(ObjectUpdateMixin, View):
     model = Tag
     form_model = TagForm
     template = 'blog/tag_update_form.html'
+
+
+class TagDelete(ObjectDeleteMixin, View):
+    model = Tag
+    template = 'blog/tag_delete_form.html'
+    redirect_url = 'tags_list_url'
 
 
 def tags_list(request):
